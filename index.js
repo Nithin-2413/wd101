@@ -1,3 +1,24 @@
+// Function to create table rows based on stored data
+function createTableRows() {
+    const storedData = JSON.parse(localStorage.getItem('userEntries')) || [];
+    const table = document.getElementById('userData').getElementsByTagName('tbody')[0];
+
+    storedData.forEach(data => {
+        const newRow = table.insertRow(table.rows.length);
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+        const cell5 = newRow.insertCell(4);
+
+        cell1.innerHTML = data.name;
+        cell2.innerHTML = data.email;
+        cell3.innerHTML = data.password;
+        cell4.innerHTML = data.dob;
+        cell5.innerHTML = data.terms ? 'Yes' : 'No';
+    });
+}
+
 // Function to handle form submission
 document.getElementById('registrationForm').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -67,24 +88,7 @@ function validateEmail(email) {
     return regex.test(email);
 }
 
-// Load saved data from local storage on page load
+// Load saved data and create table rows on page load
 window.onload = function () {
-    const storedData = JSON.parse(localStorage.getItem('userEntries')) || [];
-
-    const table = document.getElementById('userData').getElementsByTagName('tbody')[0];
-
-    storedData.forEach(data => {
-        const newRow = table.insertRow(table.rows.length);
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
-        const cell4 = newRow.insertCell(3);
-        const cell5 = newRow.insertCell(4);
-
-        cell1.innerHTML = data.name;
-        cell2.innerHTML = data.email;
-        cell3.innerHTML = data.password;
-        cell4.innerHTML = data.dob;
-        cell5.innerHTML = data.terms ? 'Yes' : 'No';
-    });
+    createTableRows();
 };
